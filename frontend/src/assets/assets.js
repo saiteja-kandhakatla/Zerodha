@@ -25,7 +25,7 @@ import smallcaseLogo from "./smallcaseLogo.png";
 import streakLogo from "./streakLogo.png";
 import varsity from "./varsity.png";
 import zerodhaFundhouse from "./zerodhaFundhouse.png";
-
+import saiteja from "./saiteja.jpeg";
 export const assets = {
   appstoreBadge,
   coin,
@@ -52,4 +52,5 @@ export const assets = {
   streakLogo,
   varsity,
   zerodhaFundhouse,
+  saiteja,
 };

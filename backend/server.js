@@ -7,7 +7,10 @@ const mongoose = require("mongoose");
 const { HoldingsModel } = require("./models/HoldingsModel");
 const PositionsModel = require("./models/PositionsModel");
 const OrdersModel = require("./models/OrdersModel");
-
+const cors = require("cors");
+const bodyParser = require("body-parser");
+app.use(cors());
+app.use(bodyParser.json());
 const port = process.env.PORT || 3002;
 const url = process.env.MONGO_URL;
 
@@ -226,6 +229,34 @@ app.get("/addOrders", async (req, res) => {
     message: "Added succesfully",
     noOfOrders: tempOrders.length,
   });
+});
+
+// fetch data from db to dashboard
+app.get("/allHoldings", async (req, res) => {
+  const holdingsData = await HoldingsModel.find({});
+  res.json(holdingsData);
+});
+// fetch data from db to dashboard
+app.get("/allPositions", async (req, res) => {
+  const positionData = await PositionsModel.find({});
+  res.json(positionData);
+});
+// fetch data from db to dashboard
+app.get("/allOrders", async (req, res) => {
+  const ordersData = await OrdersModel.find({});
+  res.json(ordersData);
+});
+// order palcing
+app.post("/newOrder", async (req, res) => {
+  let { name, qty, price, mode } = req.body;
+  let newOrder = new OrdersModel({
+    name,
+    qty,
+    price,
+    mode,
+  });
+  newOrder.save();
+  res.send("Order saved");
 });
 app.use(ex.json());
 // server start
